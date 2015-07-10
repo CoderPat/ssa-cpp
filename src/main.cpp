@@ -19,12 +19,12 @@ int main(int argc, char *argv[]) {
     return 1;
   }
 
-  auto subtitle = subtitle::from_srt(subtitleFile);
-  for (auto line : *subtitle) {
-    std::cout << line->lineno() << "\t"
-              << line->start_time() << " --> " << line->end_time() << "\t"
-              << line->line() << std::endl;
-  }
+  subtitle subtitle;
+  subtitle.from_srt(subtitleFile);
+
+  cout << "--- Subtitle ---" << endl;
+  for_each(subtitle.begin(), subtitle.end(), [](auto e) { e->output_to(cout); });
+  cout << endl;
 
   return 0;
 }

@@ -20,18 +20,19 @@ public:
 public:
   /// Constructs a subtitle from an input stream in SRT format
   template <typename InputStream>
-  static std::unique_ptr<subtitle> from_srt(InputStream &in);
+  void from_srt(InputStream &in);
 
 private:
   content_type lines_;
 };
 
-
 template <typename InputStream>
-std::unique_ptr<subtitle> subtitle::from_srt(InputStream &in) {
+void subtitle::from_srt(InputStream &in) {
   using namespace std;
 
-  vector<block_type> blocks{read_blocks(in)};
+  lines_.clear(); // XXX: should we really clear the subtitle?
+
+  vector<block_type> blocks {read_blocks(in)};
   map<int, vector<shared_ptr<subtitle_line>>> blockBySequenceNum;
 
   for (const auto &rawblock : blocks) {
@@ -110,14 +111,11 @@ std::unique_ptr<subtitle> subtitle::from_srt(InputStream &in) {
     blockBySequenceNum.emplace_hint(it, sequenceNum, move(block));
   }
 
-  auto ret = make_unique<subtitle>();
   for (const auto &block : blockBySequenceNum) {
     for (const auto &line : block.second) {
-      ret->lines_.push_back(line);
+      lines_.push_back(line);
     }
   }
-
-  return ret;
 }
 
 #endif // SUBTITLE_HPP__
