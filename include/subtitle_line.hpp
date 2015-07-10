@@ -17,6 +17,8 @@ public:
   srt_time start_time() const;
   srt_time end_time() const;
 
+  void output_to(std::ostream &o) const override;
+
   virtual ~subtitle_line();
 };
 

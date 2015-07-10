@@ -18,3 +18,7 @@ srt_time subtitle_line::end_time() const {
 
 subtitle_line::~subtitle_line() = default;
 
+void subtitle_line::output_to(std::ostream &o) const {
+  o << lineno() << ": " << start_time() << " --> " << end_time() << " | " << line() << '\n';
+}
+

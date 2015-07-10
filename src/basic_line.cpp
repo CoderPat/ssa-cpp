@@ -12,3 +12,8 @@ size_t basic_line::lineno() const {
 }
 
 basic_line::~basic_line() = default;
+
+void basic_line::output_to(std::ostream &o) const {
+  o << lineno() << ": " << line() << '\n';
+}
+

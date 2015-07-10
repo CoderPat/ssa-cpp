@@ -2,6 +2,7 @@
 #define BASIC_LINE_HPP__
 
 #include <string>
+#include <iostream>
 
 class basic_line {
   std::string line_;
@@ -12,6 +13,8 @@ public:
 
   const std::string &line() const;
   size_t lineno() const;
+
+  virtual void output_to(std::ostream &o) const;
 
   virtual ~basic_line();
 };
