@@ -10,6 +10,7 @@ include_directories(
 
 set(INCLUDE_FILES
     include/basic_line.hpp
+    include/dialogue_line.hpp
     include/script.hpp
     include/srt_time.hpp
     include/subtitle.hpp
@@ -19,6 +20,7 @@ set(INCLUDE_FILES
 
 set(SOURCE_FILES
     src/basic_line.cpp
+    src/dialogue_line.cpp
     src/main.cpp
     src/script.cpp
     src/srt_time.cpp
