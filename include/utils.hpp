@@ -13,6 +13,8 @@ using block_type = std::vector<basic_line>;
 // Based on http://stackoverflow.com/a/217605/2052998
 std::string trim(std::string s);
 
+std::vector<std::string> words_of(const std::string &s);
+
 bool is_all_upper(const std::string &s);
 
 /// Reads blocks of lines separated by blank lines. Preserves whitespace.

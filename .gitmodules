@@ -1,0 +1,3 @@
+[submodule "external/aligners"]
+	path = external/aligners
+	url = git@github.com:yaabex/aligners.git

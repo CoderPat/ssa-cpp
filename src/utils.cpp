@@ -10,6 +10,29 @@ std::string trim(std::string s) {
   return s;
 }
 
+// (Mostly) a shameless copy of count_words below
+std::vector<std::string> words_of(const std::string &s) {
+  std::vector<std::string> words;
+  auto it = s.cbegin();
+  auto et = s.cend();
+
+  // skip initial spaces
+  it = std::find_if_not(it, et, isspace);
+
+  while (it != et) {
+    auto eet = std::find_if(it, et, isspace);
+    words.emplace_back(it, eet);
+
+    if (eet == et) break;
+
+    it = std::find_if_not(eet, et, isspace);
+  }
+
+  return words;
+}
+
+// We don't take advantage of the previous function because it does
+// unnecessary work
 size_t count_words(const std::string &s) {
   size_t count = 0;
   auto it = s.cbegin();

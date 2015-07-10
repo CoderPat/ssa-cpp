@@ -6,6 +6,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Og -fsanitize=address")
 
 include_directories(
     include
+    external/aligners
 )
 
 set(INCLUDE_FILES
