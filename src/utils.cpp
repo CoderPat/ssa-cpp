@@ -27,3 +27,10 @@ size_t count_words(const std::string &s) {
 
   return count;
 }
+
+bool is_all_upper(const std::string &s) {
+  return std::all_of(s.cbegin(), s.cend(), [](char c) {
+    return ispunct(c) || isspace(c) || isupper(c);
+  });
+}
+

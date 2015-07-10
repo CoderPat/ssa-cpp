@@ -4,6 +4,7 @@
 #include "basic_line.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <string>
 #include <vector>
 
@@ -12,26 +13,35 @@ using block_type = std::vector<basic_line>;
 // Based on http://stackoverflow.com/a/217605/2052998
 std::string trim(std::string s);
 
+bool is_all_upper(const std::string &s);
+
 /// Reads blocks of lines separated by blank lines. Preserves whitespace.
 template <typename InputStream>
 std::vector<block_type> read_blocks(InputStream &in) {
   std::vector<block_type> blocks;
-  std::string line;
   size_t lineno = 0;
+  bool lastWasEmpty = false;
 
-  while (std::getline(in, line)) {
+  for (std::string line; std::getline(in, line);) {
     ++lineno;
 
-    if (trim(line).empty()) {
-      if (!blocks.empty() && !blocks.back().empty())
-        blocks.emplace_back();
+    if (line.empty() || std::all_of(line.begin(), line.end(), isspace)) {
+      // skip empty lines at start
+      if (blocks.empty()) continue;
+
+      lastWasEmpty = true;
       continue;
     }
 
-    if (blocks.empty())
-      blocks.emplace_back();
+    if (line[0] == '\x12') {
+      std::cout << "Warning: line break at line " << lineno << " may break the parser (true story)" << std::endl;
+    }
+
+    // In case the stream starts with a non-empty line
+    if (lastWasEmpty || blocks.empty()) blocks.emplace_back();
 
     blocks.back().emplace_back(lineno, line);
+    lastWasEmpty = false;
   }
 
   return blocks;

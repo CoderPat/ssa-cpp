@@ -1,3 +1,4 @@
+#include "script.hpp"
 #include "subtitle.hpp"
 
 #include <cerrno>
@@ -24,6 +25,19 @@ int main(int argc, char *argv[]) {
 
   cout << "--- Subtitle ---" << endl;
   for_each(subtitle.begin(), subtitle.end(), [](auto e) { e->output_to(cout); });
+  cout << endl;
+
+  ifstream scriptFile(argv[1]);
+  if (!scriptFile.is_open()) {
+    clog << "Could not open script: " << strerror(errno) << std::endl;
+    return 2;
+  }
+
+  script script;
+  script.from_ims(scriptFile);
+
+  cout << "--- Script ---" << endl;
+  for_each(script.begin(), script.end(), [](auto e) { e->output_to(cout); });
   cout << endl;
 
   return 0;
