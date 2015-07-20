@@ -72,7 +72,7 @@ std::ostream &operator<<(std::ostream &o, const srt_time &s) {
   o << std::setfill('0')
     << std::setw(2) << s.hours()   << ':'
     << std::setw(2) << s.minutes() << ':'
-    << std::setw(2) << s.seconds() << ','
+    << std::setw(2) << s.seconds() << '.'
     << std::setw(3) << s.millis();
 
   o.flags(flags);
