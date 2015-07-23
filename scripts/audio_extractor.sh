@@ -8,10 +8,13 @@
 
 results=$1
 movie=$2
+
+#flags
 alignements=0
 validpair=1
 mode=1
 numpair=0
+
 while read line
 do
 
@@ -35,7 +38,7 @@ do
         #if it is a valid pair
             if [ "$validpair" -eq 1 ];then
                 mkdir scriptresults
-                ffmpeg -i $movie -ss "${line:1:12}" -to "${line:18:12}" -vn -acodec copy scriptresults/"$name${numpair}".m4a -nostdin
+                ffmpeg -i $movie -ss "${line:1:12}" -to "${line:18:12}" -vn -acodec pcm_s16le -ar 44100 scriptresults/"$name${numpair}".wav -nostdin
                 (( numpair++ ))
             fi
             mode=0
